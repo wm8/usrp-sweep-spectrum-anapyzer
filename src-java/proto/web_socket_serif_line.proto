@@ -1,0 +1,14 @@
+syntax = "proto3";
+option java_package = "protoModels";
+option java_multiple_files = true;
+
+
+message ListMinimalSerifLineProto {
+  repeated MinimalSerifLineProto minimalSerifList = 1;
+}
+
+message MinimalSerifLineProto {
+  float frequencyStart = 1;
+  float frequencyEnd = 2;
+  float serifLine = 3;
+}

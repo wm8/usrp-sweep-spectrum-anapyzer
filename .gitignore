@@ -1,0 +1,15 @@
+/.externalToolBuilders
+/.settings
+/bin
+/build
+/obj
+/res
+/lib/hackrf-sweep-jna.jar
+**.jrf
+/.idea/vcs.xml
+/.idea
+/.idea/workspace.xml
+/.idea/misc.xml
+/.idea/
+/000000000000000016bc62dc2e2840a7.txt
+

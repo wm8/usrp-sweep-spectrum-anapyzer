@@ -1,0 +1,33 @@
+syntax = "proto3";
+option java_package = "protoModels";
+option java_multiple_files = true;
+
+
+enum TypeSubDiapasonProto {
+  FIND = 0;
+  CUT = 1;
+}
+
+message SubDiapasonActionProto {
+  oneof taskSubDiapason {
+    ActionCreateSubDiapasonProto create = 1;
+    ActionDeleteSubDiapasonProto delete = 2;
+    ActionDeleteAllSubDiapasonProto deleteAll = 3;
+  }
+}
+
+message ListSelectionSubDiapasonProto {
+    repeated ActionCreateSubDiapasonProto listSelectionDiapason = 1;
+}
+
+message ActionCreateSubDiapasonProto {
+  TypeSubDiapasonProto type = 1;
+  float startFrequency = 2;
+  float endFrequency = 3;
+}
+
+message ActionDeleteSubDiapasonProto {
+  float frequency = 1;
+}
+
+message ActionDeleteAllSubDiapasonProto {}

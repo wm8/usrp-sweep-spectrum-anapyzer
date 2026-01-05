@@ -1,0 +1,72 @@
+syntax = "proto3";
+import "src-java/proto/frequency_range.proto";
+
+option java_package = "protoModels";
+option java_multiple_files = true;
+
+message SpectrumWebSocketDataProto {
+  oneof command {
+    InfoGadalkaProto infoGadalka = 1;
+    SpectrumZSTDProto spectrumData = 2;
+    SerifVariantProto serifVariant = 3;
+    ActionCreateSubDiapasonProto subCreate = 4;
+    ActionDeleteSubDiapasonProto subDelete = 5;
+    ActionDeleteAllSubDiapasonProto subClear = 6;
+    AntennaPolarizationProto antennaPolarization = 7;
+  }
+}
+
+message SpectrumZSTDProto {
+  bytes data = 1;
+  int32 azimuth = 2;
+}
+
+
+message SerifVariantProto {
+  optional int32 minimalSerifLine = 1;
+  SerifTypeProto typeSerif = 2;
+}
+
+enum TypeSubDiapasonProto {
+  FIND = 0;
+  CUT = 1;
+}
+
+message ActionCreateSubDiapasonProto {
+  TypeSubDiapasonProto type = 1;
+  float startFrequency = 2;
+  float endFrequency = 3;
+}
+
+message ActionDeleteSubDiapasonProto {
+  float frequency = 1;
+}
+
+message ActionDeleteAllSubDiapasonProto {}
+
+
+enum SerifTypeProto {
+  MANUAL = 0;  // Default value
+  AUTO_3 = 1;
+  AUTO_4 = 2;
+  AUTO_5 = 3;
+}
+
+message AntennaPolarizationProto{
+  bool polarization = 1;
+}
+
+message InfoGadalkaProto {
+  FrequencyRangeProto frequencySpectrum = 1; // Диапазон частот выставленные на Гадалке
+  int32 gainLNA = 2;  // Минимальная частота
+  int32 gainVGA = 3;  // Максимальная частота
+  bool antennaLNA = 4;
+  int32 spectrumPaletteStart = 5;
+  int32 spectrumPaletteSize = 6;
+  int32 ffTBinHz = 7;
+  int32 samples = 8;
+  int32 counterSignal = 9;
+  int32 counterLose = 10;
+  int32 subRangeRemote = 11;
+  bool polarization = 12;
+}

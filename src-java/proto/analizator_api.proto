@@ -1,0 +1,37 @@
+syntax = "proto3";
+import "src-java/proto/web_socket_message.proto";
+option java_package = "protoModels";
+option java_multiple_files = true;
+
+message AnalizatorApiProto {
+  oneof taskApi {
+    WebSocketSpectrumProto spectrumData = 1;
+    WebSocketGetAllInfoProto fullInfo = 2;
+    WebSocketTaskProto task = 3;
+    WebSocketResponseProto response = 4;
+  }
+}
+
+message WebSocketSpectrumProto {
+  bytes data = 1;
+  int32 azimuth = 2;
+}
+
+message WebSocketGetAllInfoProto {
+  string uuidTask = 1;
+}
+
+enum WebSocketStatusMessageProto {
+   ACCEPTED = 0;
+   NOT_ACCEPTED = 1;
+}
+
+message WebSocketResponseProto {
+    string uuidTask = 1;
+    WebSocketStatusMessageProto status = 2;
+}
+
+message WebSocketTaskProto {
+    string uuidTask = 1;
+    WebSocketMessageTaskProto message = 2;
+}

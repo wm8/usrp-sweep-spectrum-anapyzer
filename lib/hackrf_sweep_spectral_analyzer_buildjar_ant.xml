@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project hackrf-sweep with Jar-in-Jar Loader">
+    <!--this file was created by Eclipse Runnable JAR file Export Wizard-->
+    <!--ANT 1.7 is required-->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value=""/>
+    <property name="dir.jarfile" value="../build/lib"/>
+    <target name="compile">
+        <mkdir dir="../bin"/>
+        <copy todir="../bin">
+            <fileset dir="../src-java" includes="**/*.csv" />
+        </copy>
+        <javac srcdir="../src-java" destdir="../bin">
+            <classpath>
+                <pathelement path="../miglayout15-swing.jar"/>
+                <pathelement path="jcommon-1.0.17.jar"/>
+                <pathelement path="jfreechart-1.0.14.jar"/>
+                <pathelement path="json-simple-1.1.1.jar"/>
+                <pathelement path="jna/jna-5.13.0.jar"/>
+                <pathelement path="rxjava-3.1.8.jar"/>
+                <pathelement path="lib/socket.io-client-2.1.2.jar"/>
+                <pathelement path="lib/engine.io-client-2.1.0.jar"/>
+                <pathelement path="lib/okio-1.15.0.jar"/>
+                <pathelement path="lib/okhttp-3.12.12.jar"/>
+                <pathelement path="lib/json-20090211.jar"/>
+                <pathelement path="lib/gson-2.11.0.jar"/>
+                <pathelement path="lib/protobuf-java-4.30.2.jar"/>
+                <pathelement path="lib/ktor-client-core-jvm-2.3.12.jar"/>
+                <pathelement path="lib/zstd-jni-1.5.7-2.jar"/>
+            </classpath>
+        </javac>
+    </target>
+    <target name="create_run_jar">
+        <jar destfile="${dir.jarfile}/hackrf_sweep_spectrum_analyzer.jar">
+            <manifest>
+                <attribute name="Main-Class" value="jspectrumanalyzer.HackRFSweepSpectrumAnalyzer"/>
+                <attribute name="Class-Path" value="./ miglayout15-swing.jar jcommon-1.0.17.jar jfreechart-1.0.14.jar json-simple-1.1.1.jar jna-5.13.0.jar rxjava-3.1.8.jar socket.io-client-2.1.2.jar engine.io-client-2.1.0.jar okio-1.15.0.jar okhttp-3.12.12.jar json-20090211.jar gson-2.11.0.jar protobuf-java-4.30.2.jar ktor-client-core-jvm-2.3.12.jar zstd-jni-1.5.7-2.jar"/>
+                <attribute name="X-AppName" value="5800-5900 Spectrum Analyzer"/>
+                <attribute name="X-GNOME-Autostart-Phase" value="Applications"/>
+            </manifest>
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="../bin"/>
+            <zipfileset src="../miglayout15-swing.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <!-- Включаем содержимое зависимостей внутрь JAR -->
+            <zipfileset src="${dir.buildfile}/jcommon-1.0.17.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/jfreechart-1.0.14.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/json-simple-1.1.1.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/jna/jna-5.13.0.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/rxjava-3.1.8.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/socket.io-client-2.1.2.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/engine.io-client-2.1.0.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/okio-1.15.0.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/okhttp-3.12.12.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/json-20090211.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/gson-2.11.0.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/protobuf-java-4.30.2.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/ktor-client-core-jvm-2.3.12.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+            <zipfileset src="${dir.buildfile}/zstd-jni-1.5.7-2.jar" excludes="META-INF/*.SF, META-INF/*.DSA, META-INF/*.RSA"/>
+        </jar>
+    </target>
+</project>

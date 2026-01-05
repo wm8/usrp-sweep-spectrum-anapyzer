@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src-java">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="hackrf-sweep/build/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
+	<classpathentry kind="lib" path="lib/jcommon-1.0.17.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart-1.0.14.jar"/>
+	<classpathentry kind="lib" path="lib/hackrf-sweep-jna.jar"/>
+	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/jna/jna-5.13.0.jar"/>
+	<classpathentry kind="var" path="MAVEN_REPOSITORY/org/jetbrains/annotations/24.0.0/annotations-24.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/rxjava-3.1.8.jar" sourcepath="/home/user/.ideaLibSources/rxjava-3.1.8-sources.jar"/>
+	<classpathentry kind="lib" path="lib/engine.io-client-2.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/okio-1.15.0.jar"/>
+	<classpathentry kind="lib" path="lib/okhttp-3.12.12.jar"/>
+	<classpathentry kind="lib" path="lib/json-20090211.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.11.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/KotlinJavaRuntime"/>
+	<classpathentry kind="lib" path="lib/zstd-jni-1.5.7-2.jar"/>
+	<classpathentry kind="lib" path="lib/socket.io-client-2.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/protobuf-java-4.30.2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

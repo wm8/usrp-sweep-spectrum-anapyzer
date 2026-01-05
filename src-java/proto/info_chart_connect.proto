@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option java_package = "protoModels";
+option java_multiple_files = true;
+
+message InfoChartConnectProto {
+  string host_name = 1;
+  int32 port_ws = 2;
+  string serverGadalkaID = 3;
+}
