@@ -1,6 +1,5 @@
 package jspectrumanalyzer;
 
-import com.github.luben.zstd.Zstd;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -170,7 +169,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 	public static String  pathFile = "";
 	public static int port = 7000;
 	public static String uid = "";
-	public static String ipadress = "";
+	public static final String ipadress = "localhost";
 	public static Integer counterForEmit = 0;
 	public static Integer oldCounter = 0;
 	public static Integer minLineForSerif = -60;
@@ -206,7 +205,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 		//args = new String[]{"/home/androkroker/config/800.json"};
 //		args = new String[]{"/home/androkroker/config/1.json"};
 		System.out.println(args.length);
-		System.out.println("args = " + Arrays.toString(args));
+		System.out.println("args4 = " + Arrays.toString(args));
         if (args.length > 0) {
 			if (args[0].equals("capturegif")) {
 				captureGIF = true;
@@ -221,7 +220,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 					numberApp = ((Number) jo.get("numberapp")).intValue();
 					hackrfID = (String) jo.get("hackrfid");
 					port = ((Number) jo.get("udpport")).intValue();
-					ipadress = (String) jo.get("ipadress");
+					//ipadress = (String) jo.getOrDefault("ipadress", "localhost");
 					uid = String.valueOf(hackrfID.hashCode());
 					freqStart = ((Number) hackRFSettings.get("freqstart")).intValue();
 					freqEnd = ((Number) hackRFSettings.get("freqend")).intValue();
@@ -256,7 +255,6 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 						String status = (String) jsonObject.get("status");
 						ranges1.add(new RangeForSerif(startFreq,endFreq,status));
 					}
-					System.out.println(123);
 
 
 
@@ -492,7 +490,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 					}
 				}
 				else {
-					throw new RuntimeException("Some shit");
+					//throw new RuntimeException("Some shit");
 					/*Files.move(Path.of("/home/user/gadalkaLogs/analizatorLogs/seriflogs/" + hackrfID + ".txt"),
 							Path.of("/home/user/gadalkaLogs/analizatorLogs/seriflogs/" + hackrfID + "_archive_" +currentDate+ ".txt"),
 							StandardCopyOption.REPLACE_EXISTING);
@@ -519,7 +517,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 					/*Files.move(Path.of("/home/user/gadalkaLogs/analizatorLogs/signallogs/" + hackrfID + ".txt"),
 							Path.of("/home/user/gadalkaLogs/analizatorLogs/signallogs/" + hackrfID + "_archive_" +currentDate+ ".txt"),
 							StandardCopyOption.REPLACE_EXISTING);*/
-					throw new RuntimeException("Some shit");
+					//throw new RuntimeException("Some shit");
 				}
 			}
 			String serifDir = "/gadalkaLogs/analizatorLogs/seriflogs";

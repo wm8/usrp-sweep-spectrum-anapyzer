@@ -270,16 +270,16 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		tabbedPane.setForeground(Color.WHITE);
 		tabbedPane.setBackground(Color.BLACK);
 
-		JPanel tab1	= new JPanel(new MigLayout("", "[123.00px,grow,leading]", "[][][0][][][0][][][0][][][0][][][0][][0][][grow,fill]"));
-		tab1.setForeground(Color.WHITE);
-		tab1.setBackground(Color.BLACK);
+		JPanel hackRfOptionsTab	= new JPanel(new MigLayout("", "[123.00px,grow,leading]", "[][][0][][][0][][][0][][][0][][][0][][0][][grow,fill]"));
+		hackRfOptionsTab.setForeground(Color.WHITE);
+		hackRfOptionsTab.setBackground(Color.BLACK);
 
-		JPanel tab2	= new JPanel(new MigLayout("", "[123.00px,grow,leading]", "[][0][][][0][][][0][][0][][][0][][0][][][0][0][][][0][][0][grow,fill]"));
-		tab2.setForeground(Color.WHITE);
-		tab2.setBackground(Color.BLACK);
+		JPanel GraphOptionsTab	= new JPanel(new MigLayout("", "[123.00px,grow,leading]", "[][0][][][0][][][0][][0][][][0][][0][][][0][0][][][0][][0][grow,fill]"));
+		GraphOptionsTab.setForeground(Color.WHITE);
+		GraphOptionsTab.setBackground(Color.BLACK);
 		
-		tabbedPane.addTab("Опции HackRF", tab1);
-		tabbedPane.addTab("Опции графика ", tab2);
+		tabbedPane.addTab("Опции HackRF", hackRfOptionsTab);
+		tabbedPane.addTab("Опции графика ", GraphOptionsTab);
 		tabbedPane.setForegroundAt(1, Color.BLACK);
 		tabbedPane.setBackgroundAt(1, Color.WHITE);
 
@@ -304,7 +304,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 
 			JLabel lblNewLabel_2 = new JLabel("LNA Усиление [dB]");
 			lblNewLabel_2.setForeground(Color.WHITE);
-			tab1.add(lblNewLabel_2, "cell 0 3");
+			hackRfOptionsTab.add(lblNewLabel_2, "cell 0 3");
 
 			sliderGainLNA = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 2);
 			sliderGainLNA.setForeground(Color.WHITE);
@@ -331,12 +331,12 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 			panelLNA.add(sliderGainLNA, BorderLayout.CENTER);
 			panelLNA.add(rightLNAButton, BorderLayout.EAST);
 
-			tab1.add(panelLNA, "cell 0 4,growx");
+			hackRfOptionsTab.add(panelLNA, "cell 0 4,growx");
 
 			
 			JLabel lblVgfaGaindb = new JLabel("VGA Усиление [dB]");
 			lblVgfaGaindb.setForeground(Color.WHITE);
-			tab1.add(lblVgfaGaindb, "cell 0 6");
+			hackRfOptionsTab.add(lblVgfaGaindb, "cell 0 6");
 
 			sliderGainVGA = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 2);
 			sliderGainVGA.setForeground(Color.WHITE);
@@ -360,11 +360,11 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 			panelVGA.add(leftVGAButton, BorderLayout.WEST);
 			panelVGA.add(sliderGainVGA, BorderLayout.CENTER);
 			panelVGA.add(rightVGAButton, BorderLayout.EAST);
-			tab1.add(panelVGA, "cell 0 7,growx");
+			hackRfOptionsTab.add(panelVGA, "cell 0 7,growx");
 
 			JLabel lblWaterfallPaletteStart = new JLabel("Старт палитры водопада [dB]");
 			lblWaterfallPaletteStart.setForeground(Color.WHITE);
-			tab1.add(lblWaterfallPaletteStart, "cell 0 8");
+			hackRfOptionsTab.add(lblWaterfallPaletteStart, "cell 0 8");
 
 			slider_waterfallPaletteStart = new JSlider();
 			slider_waterfallPaletteStart.setForeground(Color.WHITE);
@@ -391,12 +391,12 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 			panelPaletteStart.add(slider_waterfallPaletteStart, BorderLayout.CENTER);
 			panelPaletteStart.add(rightPaletteStartButton, BorderLayout.EAST);
 
-			tab1.add(panelPaletteStart, "cell 0 9,growx");
+			hackRfOptionsTab.add(panelPaletteStart, "cell 0 9,growx");
 
 
 			JLabel lblWaterfallPaletteLength = new JLabel("Размер палитры водопада [dB]");
 			lblWaterfallPaletteLength.setForeground(Color.WHITE);
-			tab1.add(lblWaterfallPaletteLength, "cell 0 10");
+			hackRfOptionsTab.add(lblWaterfallPaletteLength, "cell 0 10");
 
 
 
@@ -423,18 +423,18 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 			panelPaletteSize.add(slider_waterfallPaletteSize, BorderLayout.CENTER);
 			panelPaletteSize.add(rightPaletteSizeButton, BorderLayout.EAST);
 
-			tab1.add(panelPaletteSize, "cell 0 11,growx");
+			hackRfOptionsTab.add(panelPaletteSize, "cell 0 11,growx");
 
 			
 			JLabel lblLNAEnable = new JLabel("Антенное усиление +14dB");
 			lblLNAEnable.setForeground(Color.WHITE);
-			tab1.add(lblLNAEnable, "flowx,cell 0 14,growx");
+			hackRfOptionsTab.add(lblLNAEnable, "flowx,cell 0 14,growx");
 
 			chckbxAntennaLNA = new JCheckBox("");
 			chckbxAntennaLNA.setHorizontalTextPosition(SwingConstants.LEADING);
 			chckbxAntennaLNA.setBackground(Color.BLACK);
 			chckbxAntennaLNA.setForeground(Color.WHITE);
-			tab1.add(chckbxAntennaLNA, "cell 0 14,alignx right");
+			hackRfOptionsTab.add(chckbxAntennaLNA, "cell 0 14,alignx right");
 
 			
 
@@ -454,7 +454,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 			scrollPane.setPreferredSize(new Dimension(100, 150));
 			JPanel outerPanel = new JPanel(new BorderLayout());
 			outerPanel.add(scrollPane, BorderLayout.CENTER);
-			tab1.add(outerPanel,"flowx,cell 0 17,growx");
+			hackRfOptionsTab.add(outerPanel,"flowx,cell 0 17,growx");
 
 			/*JLabel lblAntennaPower = new JLabel("Поляризация антенны");
 			lblAntennaPower.setForeground(Color.WHITE);
@@ -477,45 +477,45 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		JLabel lblWaterfallEnabled = new JLabel("Водопад включен");
 
 		lblWaterfallEnabled.setForeground(Color.WHITE);
-		//tab2.add(lblWaterfallEnabled, "flowx,cell 0 0,growx");
+		//GraphOptionsTab.add(lblWaterfallEnabled, "flowx,cell 0 0,growx");
 
 		checkBoxWaterfallEnabled = new JCheckBox("");
 		checkBoxWaterfallEnabled.setForeground(Color.WHITE);
 		checkBoxWaterfallEnabled.setBackground(Color.BLACK);
-		//tab2.add(checkBoxWaterfallEnabled, "cell 0 0,alignx right");
+		//GraphOptionsTab.add(checkBoxWaterfallEnabled, "cell 0 0,alignx right");
 
 		JLabel lblChartVisible = new JLabel("График включен");
 		lblChartVisible.setForeground(Color.WHITE);
-		tab2.add(lblChartVisible, "flowx,cell 0 0,growx");
+		GraphOptionsTab.add(lblChartVisible, "flowx,cell 0 0,growx");
 
 		checkboxChartVisible = new JCheckBox("");
 		checkboxChartVisible.setForeground(Color.WHITE);
 		checkboxChartVisible.setBackground(Color.BLACK);
-		tab2.add(checkboxChartVisible,"cell 0 0,alignx right");
+		GraphOptionsTab.add(checkboxChartVisible,"cell 0 0,alignx right");
 
 		JLabel lblSerifVariants = new JLabel("Вариант детекции");
 		lblSerifVariants.setForeground(Color.WHITE);
-		tab2.add(lblSerifVariants, "cell 0 1,growx");
+		GraphOptionsTab.add(lblSerifVariants, "cell 0 1,growx");
 
 		comboBoxSerifVariants = new JComboBox(new String[] {
                 "Ручная", "Середина", "Максимум", "Мульти максимум"
 		});
-		tab2.add(comboBoxSerifVariants, "cell 0 1,alignx right");
+		GraphOptionsTab.add(comboBoxSerifVariants, "cell 0 1,alignx right");
 
 		lblSubRange = new JLabel("Размер поддиапазонов");
 		lblSubRange.setForeground(Color.WHITE);
-		tab2.add(lblSubRange, "cell 0 2,growx");
+		GraphOptionsTab.add(lblSubRange, "cell 0 2,growx");
 
 		comboBoxSubRange = new JComboBox(new Integer[] {
 				5,10,20,40,100
 		});
-		tab2.add(comboBoxSubRange, "cell 0 2,alignx right");
+		GraphOptionsTab.add(comboBoxSubRange, "cell 0 2,alignx right");
 
 		//comboBoxSubRange.setVisible(false);
 
 		JLabel lblChartminimumPing = new JLabel("Минимальная линия для засечки");
 		lblWaterfallEnabled.setForeground(Color.WHITE);
-		tab2.add(lblChartminimumPing, "cell 0 3");
+		GraphOptionsTab.add(lblChartminimumPing, "cell 0 3");
 
 		slider_chartForPing = new JSlider();
 		slider_chartForPing.setForeground(Color.WHITE);
@@ -543,35 +543,35 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		panel.add(slider_chartForPing, BorderLayout.CENTER);
 		panel.add(rightMinLineButton, BorderLayout.EAST);
 
-		tab2.add(panel, "cell 0 4,growx");
+		GraphOptionsTab.add(panel, "cell 0 4,growx");
 
 		JLabel lblFftBinhz = new JLabel("Ширина полосы диапазона");
 		lblFftBinhz.setForeground(Color.WHITE);
-		tab2.add(lblFftBinhz, "cell 0 5");
+		GraphOptionsTab.add(lblFftBinhz, "cell 0 5");
 
 		spinnerFFTBinHz = new JSpinner();
 		spinnerFFTBinHz.setFont(new Font("Monospaced", Font.BOLD, 16));
 		spinnerModelFFTBinHz = new SpinnerListModel(new String[] { "1 000", "2 000", "5 000", "10 000", "20 000",
 				"50 000", "100 000", "200 000", "500 000", "1 000 000", "2 000 000", "5 000 000" });
 		spinnerFFTBinHz.setModel(spinnerModelFFTBinHz);
-		tab2.add(spinnerFFTBinHz, "cell 0 5,growx");
+		GraphOptionsTab.add(spinnerFFTBinHz, "cell 0 5,growx");
 		((ListEditor) spinnerFFTBinHz.getEditor()).getTextField().setHorizontalAlignment(JTextField.RIGHT);
 
 		JLabel lblNumberOfSamples = new JLabel("Баланс детализации");
 		lblNumberOfSamples.setForeground(Color.WHITE);
-		tab2.add(lblNumberOfSamples, "cell 0 6");
+		GraphOptionsTab.add(lblNumberOfSamples, "cell 0 6");
 
 		spinner_numberOfSamples = new JSpinner();
 		spinner_numberOfSamples.setModel(new SpinnerListModel(new String[] { "8192", "16384", "32768", "65536", "131072", "262144" }));
 		spinner_numberOfSamples.setFont(new Font("Monospaced", Font.BOLD, 16));
 		((ListEditor) spinner_numberOfSamples.getEditor()).getTextField().setHorizontalAlignment(JTextField.RIGHT);
 		((ListEditor) spinner_numberOfSamples.getEditor()).getTextField().setEditable(false);
-		tab2.add(spinner_numberOfSamples, "cell 0 6,growx");
+		GraphOptionsTab.add(spinner_numberOfSamples, "cell 0 6,growx");
 
 
 		/*JLabel lblWaterfallPaletteStart = new JLabel("Старт палитры водопада [dB]");
 		lblWaterfallPaletteStart.setForeground(Color.WHITE);
-		tab2.add(lblWaterfallPaletteStart, "cell 0 4");
+		GraphOptionsTab.add(lblWaterfallPaletteStart, "cell 0 4");
 
 		slider_waterfallPaletteStart = new JSlider();
 		slider_waterfallPaletteStart.setForeground(Color.WHITE);
@@ -579,108 +579,108 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		slider_waterfallPaletteStart.setMinimum(-100);
 		slider_waterfallPaletteStart.setMaximum(0);
 		slider_waterfallPaletteStart.setValue(-30);
-		tab2.add(slider_waterfallPaletteStart, "cell 0 5,growx");
+		GraphOptionsTab.add(slider_waterfallPaletteStart, "cell 0 5,growx");
 
 
 		JLabel lblWaterfallPaletteLength = new JLabel("Размер палитры водопада [dB]");
 		lblWaterfallPaletteLength.setForeground(Color.WHITE);
-		tab2.add(lblWaterfallPaletteLength, "cell 0 6");
+		GraphOptionsTab.add(lblWaterfallPaletteLength, "cell 0 6");
 
 		slider_waterfallPaletteSize = new JSlider(HackRFSweepSpectrumAnalyzer.SPECTRUM_PALETTE_SIZE_MIN, 100);
 		slider_waterfallPaletteSize.setBackground(Color.BLACK);
 		slider_waterfallPaletteSize.setForeground(Color.WHITE);
-		tab2.add(slider_waterfallPaletteSize, "cell 0 7,growx");*/
+		GraphOptionsTab.add(slider_waterfallPaletteSize, "cell 0 7,growx");*/
 
 		
 
 
 		JLabel lblLoseCounter = new JLabel("Каунтер потери сигнала");
 		lblLoseCounter.setForeground(Color.WHITE);
-		tab2.add(lblLoseCounter, "flowx,cell 0 8,growx");
+		GraphOptionsTab.add(lblLoseCounter, "flowx,cell 0 8,growx");
 
 		comboBoxLoseCounter = new JComboBox<>(new Integer[] {
 				20,30,40,50
 		});
-		tab2.add(comboBoxLoseCounter, "cell 0 8,alignx right");
+		GraphOptionsTab.add(comboBoxLoseCounter, "cell 0 8,alignx right");
 
 		JLabel lblTest = new JLabel("кол-во итераций сигнала");
 		lblTest.setForeground(Color.WHITE);
-		tab2.add(lblTest, "flowx,cell 0 9,growx");
+		GraphOptionsTab.add(lblTest, "flowx,cell 0 9,growx");
 
 		comboBoxCounterSignal = new JComboBox(new Integer[] {
                 5, 10, 15, 20, 25, 30
 		});
-		tab2.add(comboBoxCounterSignal, "cell 0 9,alignx right");
+		GraphOptionsTab.add(comboBoxCounterSignal, "cell 0 9,alignx right");
 		
 		JLabel lblShowPeaks = new JLabel("Показывать пик");
 		lblShowPeaks.setForeground(Color.WHITE);
-		tab2.add(lblShowPeaks, "flowx,cell 0 10,growx");
+		GraphOptionsTab.add(lblShowPeaks, "flowx,cell 0 10,growx");
 
 
 		chckbxShowPeaks = new JCheckBox("");
 		chckbxShowPeaks.setForeground(Color.WHITE);
 		chckbxShowPeaks.setBackground(Color.BLACK);
-		tab2.add(chckbxShowPeaks, "cell 0 10,alignx right");
+		GraphOptionsTab.add(chckbxShowPeaks, "cell 0 10,alignx right");
 
 		lblPeakFall = new JLabel("  Скорость падения [s]");
 		lblPeakFall.setForeground(Color.WHITE);
-		tab2.add(lblPeakFall, "flowx,cell 0 11,growx");
+		GraphOptionsTab.add(lblPeakFall, "flowx,cell 0 11,growx");
 
 		spinnerPeakFallSpeed = new JSpinner();
 		spinnerPeakFallSpeed.setModel(new SpinnerNumberModel(10, 0, 500, 1));
-		tab2.add(spinnerPeakFallSpeed, "cell 0 11,alignx right");
+		GraphOptionsTab.add(spinnerPeakFallSpeed, "cell 0 11,alignx right");
 
 		JLabel lblSpurFiltermay = new JLabel("Убрать помехи");
 		lblSpurFiltermay.setForeground(Color.WHITE);
-		tab2.add(lblSpurFiltermay, "flowx,cell 0 13,growx");
+		GraphOptionsTab.add(lblSpurFiltermay, "flowx,cell 0 13,growx");
 
 		chckbxRemoveSpurs = new JCheckBox("");
 		chckbxRemoveSpurs.setForeground(Color.WHITE);
 		chckbxRemoveSpurs.setBackground(Color.BLACK);
-		tab2.add(chckbxRemoveSpurs, "cell 0 13,alignx right");
+		GraphOptionsTab.add(chckbxRemoveSpurs, "cell 0 13,alignx right");
 
 		JLabel lblSpectrLineThickness = new JLabel("Толщина линии спектра");
 		lblSpectrLineThickness.setForeground(Color.WHITE);
-		tab2.add(lblSpectrLineThickness, "flowx,cell 0 14,growx");
+		GraphOptionsTab.add(lblSpectrLineThickness, "flowx,cell 0 14,growx");
 
 		comboBoxLineThickness = new JComboBox(new BigDecimal[] {
 				new BigDecimal("1"), new BigDecimal("1.5"), new BigDecimal("2"), new BigDecimal("3")
 		});
-		tab2.add(comboBoxLineThickness, "cell 0 14,alignx right");
+		GraphOptionsTab.add(comboBoxLineThickness, "cell 0 14,alignx right");
 		
 
 		
 		lblPersistentDisplay = new JLabel("Постоянное отображение");
 		lblPersistentDisplay.setForeground(Color.WHITE);
-		tab2.add(lblPersistentDisplay, "flowx,cell 0 15,growx");
+		GraphOptionsTab.add(lblPersistentDisplay, "flowx,cell 0 15,growx");
 
 		checkBoxPersistentDisplay = new JCheckBox("");
 		checkBoxPersistentDisplay.setForeground(Color.WHITE);
 		checkBoxPersistentDisplay.setBackground(Color.BLACK);
-		tab2.add(checkBoxPersistentDisplay, "cell 0 15,alignx right");
+		GraphOptionsTab.add(checkBoxPersistentDisplay, "cell 0 15,alignx right");
 		
 		lblDecayRate = new JLabel("  Время отображения [s]");
 		lblDecayRate.setForeground(Color.WHITE);
-		tab2.add(lblDecayRate, "flowx,cell 0 16,growx");
+		GraphOptionsTab.add(lblDecayRate, "flowx,cell 0 16,growx");
 
 		comboBoxDecayRate = new JComboBox(
 				new Vector<>(IntStream.rangeClosed(hRF.getPersistentDisplayDecayRate().getMin(), hRF.getPersistentDisplayDecayRate().getMax()).
 						boxed().collect(Collectors.toList())));
-		tab2.add(comboBoxDecayRate, "cell 0 16,alignx right");
+		GraphOptionsTab.add(comboBoxDecayRate, "cell 0 16,alignx right");
 
 		isCrossLabel = new JLabel("включить прицел");
 		isCrossLabel.setForeground(Color.WHITE);
-		tab2.add(isCrossLabel, "flowx,cell 0 17,growx");
+		GraphOptionsTab.add(isCrossLabel, "flowx,cell 0 17,growx");
 
 		isCrossCheckBox = new JCheckBox("");
 		isCrossCheckBox.setForeground(Color.WHITE);
 		isCrossCheckBox.setBackground(Color.BLACK);
-		tab2.add(isCrossCheckBox, "cell 0 17,alignx right");
+		GraphOptionsTab.add(isCrossCheckBox, "cell 0 17,alignx right");
 
 		
 		JLabel lblDisplayFrequencyAllocation = new JLabel("Полоса распределения частот");
 		lblDisplayFrequencyAllocation.setForeground(Color.WHITE);
-		tab2.add(lblDisplayFrequencyAllocation, "cell 0 19");
+		GraphOptionsTab.add(lblDisplayFrequencyAllocation, "cell 0 19");
 
 
 		FrequencyAllocations frequencyAllocations	= new FrequencyAllocations();
@@ -689,17 +689,17 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		freqAllocValues.addAll(frequencyAllocations.getTable().values());
 		DefaultComboBoxModel<FrequencyAllocationTable> freqAllocModel	= new  DefaultComboBoxModel<>(freqAllocValues);
 		comboBoxFrequencyAllocationBands = new JComboBox<FrequencyAllocationTable>(freqAllocModel);
-		tab2.add(comboBoxFrequencyAllocationBands, "cell 0 20,growx");
+		GraphOptionsTab.add(comboBoxFrequencyAllocationBands, "cell 0 20,growx");
 
 
 		lblDebugDisplay = new JLabel("Debug display");
 		lblDebugDisplay.setForeground(Color.WHITE);
-		tab2.add(lblDebugDisplay, "flowx,cell 0 22,growx");
+		GraphOptionsTab.add(lblDebugDisplay, "flowx,cell 0 22,growx");
 
 		checkBoxDebugDisplay = new JCheckBox("");
 		checkBoxDebugDisplay.setForeground(Color.WHITE);
 		checkBoxDebugDisplay.setBackground(Color.BLACK);
-		tab2.add(checkBoxDebugDisplay, "cell 0 22,alignx right");
+		GraphOptionsTab.add(checkBoxDebugDisplay, "cell 0 22,alignx right");
 
 		bindViewToModel();
 		if (Objects.equals(socket.getIsConnected(), "подключен")){
@@ -712,8 +712,8 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 				boolean visible = "Мульти максимум".equals(e.getItem());
 				lblSubRange.setVisible(visible);
 				comboBoxSubRange.setVisible(visible);
-				tab2.revalidate(); // Перерисовка компонента
-				tab2.repaint();
+				GraphOptionsTab.revalidate(); // Перерисовка компонента
+				GraphOptionsTab.repaint();
 			}
 		});
 

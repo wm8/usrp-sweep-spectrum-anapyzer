@@ -10,14 +10,14 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.release>8</maven.compiler.release>
+        <maven.compiler.release>21</maven.compiler.release>
 
         <!-- TODO: поставь реальный main class -->
-        <app.mainClass>jspectrumanalyzer.HackRFWrapper</app.mainClass>
+        <app.mainClass>jspectrumanalyzer.HackRFSweepSpectrumAnalyzer</app.mainClass>
 
         <!-- Где лежит твой native build.sh -->
-        <native.script.dir>${project.basedir}/src/main/native</native.script.dir>
-        <native.script>build.sh</native.script>
+        <native.script.dir>${project.basedir}/src-c/</native.script.dir>
+        <native.script>build.bat</native.script>
 
         <!-- Куда складывает артефакты native-скрипт -->
         <native.out.dir>${project.build.directory}/native-build</native.out.dir>
@@ -121,6 +121,11 @@
             <groupId>net.java.dev.jna</groupId>
             <artifactId>jna</artifactId>
             <version>5.14.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.miglayout</groupId>
+            <artifactId>miglayout-swing</artifactId>
+            <version>11.3</version>
         </dependency>
     </dependencies>
 
@@ -231,7 +236,26 @@
 
                 </executions>
             </plugin>
-
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals><goal>shade</goal></goals>
+                        <configuration>
+                            <finalName>hackrf_sweep_spectrum_analyzer</finalName>
+                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${app.mainClass}</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
