@@ -8,7 +8,7 @@ import jspectrumanalyzer.core.*;
 import jspectrumanalyzer.core.jfc.XYSeriesCollectionImmutable;
 import jspectrumanalyzer.core.jfc.XYSeriesImmutable;
 import jspectrumanalyzer.enciderinterface.ConditionalDataListener2;
-import jspectrumanalyzer.nativebridge.HackRFSweepDataCallback;
+import jspectrumanalyzer.nativebridge.SweepDataCallback;
 import jspectrumanalyzer.nativebridge.HackRFSweepNativeBridge;
 import jspectrumanalyzer.socket.SocketIOGadalka;
 import jspectrumanalyzer.ui.AzimuthPanel;
@@ -42,6 +42,7 @@ import shared.mvc.ModelValue;
 import shared.mvc.ModelValue.ModelValueBoolean;
 import shared.mvc.ModelValue.ModelValueInt;
 import io.reactivex.rxjava3.core.Observable;
+import usrp.UsrpSweepNativeBridge;
 
 
 import javax.swing.*;
@@ -53,10 +54,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.math.BigDecimal;
 import java.net.*;
-import java.nio.ByteBuffer;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.DecimalFormat;
 import java.util.*;
@@ -67,7 +65,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.zip.GZIPOutputStream;
 
 
-public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepDataCallback,AzimuthListener,SettingsWSListener {
+public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCallback,AzimuthListener,SettingsWSListener {
 
 
 	private static class PerformanceEntry{
@@ -201,11 +199,15 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 	private static long		initTime					= System.currentTimeMillis();
 
 	public static void main(String[] args) throws IOException {
+
 		//		System.out.println(new File("").getAbsolutePath();
 		//args = new String[]{"/home/androkroker/config/800.json"};
 //		args = new String[]{"/home/androkroker/config/1.json"};
+		long pid = ProcessHandle.current().pid();
+		System.out.println("Process ID: " + pid);
 		System.out.println(args.length);
 		System.out.println("args4 = " + Arrays.toString(args));
+		//System.in.read();
         if (args.length > 0) {
 			if (args[0].equals("capturegif")) {
 				captureGIF = true;
@@ -2216,7 +2218,8 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, HackRFSweepD
 						+ "MHz  FFTBin " + parameterFFTBinHz.getValue() + "Hz  samples " + parameterSamples.getValue()
 						+ "  lna: " + parameterGainLNA.getValue() + " vga: " + parameterGainVGA.getValue() + " antenna_lna: "+parameterAntennaLNA.getValue());
 				fireHardwareStateChanged(false);
-				HackRFSweepNativeBridge.start(this, getFreq().getStartMHz(), getFreq().getEndMHz(),
+				UsrpSweepNativeBridge.init();
+				UsrpSweepNativeBridge.start(this, getFreq().getStartMHz(), getFreq().getEndMHz(),
 						parameterFFTBinHz.getValue(), parameterSamples.getValue(), parameterGainLNA.getValue(),
 						parameterGainVGA.getValue(), parameterAntennaPolarization.getValue(), parameterAntennaLNA.getValue(),hackrfID);
 				// Сюда в ставлять серийник !!!

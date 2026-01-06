@@ -33,8 +33,8 @@ public class HackRFSweepNativeBridge
 
 	}
 
-	public static synchronized void start(HackRFSweepDataCallback dataCallback, int freq_min_MHz, int freq_max_MHz, int fft_bin_width, int num_samples,
-			int lna_gain, int vga_gain, boolean antennaPowerEnable, boolean internalLNA, String serial_number)
+	public static synchronized void start(SweepDataCallback dataCallback, int freq_min_MHz, int freq_max_MHz, int fft_bin_width, int num_samples,
+										  int lna_gain, int vga_gain, boolean antennaPowerEnable, boolean internalLNA, String serial_number)
 //Серийный номер БЛЕЯТЬ
 	{
 		hackrf_sweep_lib_start__fft_power_callback_callback callback = new hackrf_sweep_lib_start__fft_power_callback_callback()

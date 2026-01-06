@@ -1,6 +1,6 @@
 package jspectrumanalyzer.nativebridge;
 
-public interface HackRFSweepDataCallback
+public interface SweepDataCallback
 {
 	/**
 	 * Called by native code when new spectrum data is available 
