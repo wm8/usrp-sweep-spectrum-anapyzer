@@ -154,8 +154,8 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 	private static boolean	captureGIF					= false;
 	public static int numberApp = 0;
 	public static String hackrfID = "";
-	public static int freqStart = 2400;
-	public static int freqEnd = 2500;
+	public static int freqStart = 7000;
+	public static int freqEnd = 15000;
 	public static int parametrGainLNA = 0;
 	public static int parametrGainVGA = 0;
 	public static int totalgain = 0;
@@ -374,8 +374,11 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 	private SignalStreamProcessor signalStreamProcessor;
 	private  ConfigSerif configSerif;
 
+
+
 	public HackRFSweepSpectrumAnalyzer() {
 		printInit(0);
+		init();
 
 
 		if (captureGIF) {
@@ -463,74 +466,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 		);
 		sett = settingsPanel;
 
-		try {
-
-			File dirFileSerif = new File("/home/user/gadalkaLogs/analizatorLogs/seriflogs");
-			if (!dirFileSerif.exists()) {
-				System.out.println("создание папки seriflogs");
-				dirFileSerif.mkdirs();
-			}
-			File dirFileSignal = new File("/home/user/gadalkaLogs/analizatorLogs/signallogs");
-			if (!dirFileSignal.exists()) {
-				System.out.println("создание папки signallogs");
-				dirFileSignal.mkdirs();
-			}
-			File fileLogsSerif = new File("/home/user/gadalkaLogs/analizatorLogs/seriflogs/"+hackrfID +".txt");
-			if (fileLogsSerif.createNewFile()) {
-				System.out.println("Файл создан");
-			} else {
-				System.out.println("Файл уже существует");
-				java.time.LocalDate currentDate = java.time.LocalDate.now();
-				File fileLogsSerifArchive = new File("/home/user/gadalkaLogs/analizatorLogs/seriflogs/" + hackrfID + "_archive_" +currentDate+ ".txt");
-				if (fileLogsSerifArchive.exists()) {
-					appendFile(fileLogsSerif,fileLogsSerifArchive);
-					try (FileWriter writer = new FileWriter(fileLogsSerif, false)) { // false -> перезапись файла (очистка)
-						System.out.println("Файл успешно очищен.");
-					} catch (IOException e) {
-						System.out.println("Ошибка при очистке файла.");
-						e.printStackTrace();
-					}
-				}
-				else {
-					//throw new RuntimeException("Some shit");
-					/*Files.move(Path.of("/home/user/gadalkaLogs/analizatorLogs/seriflogs/" + hackrfID + ".txt"),
-							Path.of("/home/user/gadalkaLogs/analizatorLogs/seriflogs/" + hackrfID + "_archive_" +currentDate+ ".txt"),
-							StandardCopyOption.REPLACE_EXISTING);
-*/
-				}
-			}
-			File fileLogsSignal = new File("/home/user/gadalkaLogs/analizatorLogs/signallogs/"+hackrfID +".txt");
-			if (fileLogsSignal.createNewFile()) {
-				System.out.println("Файл логов для сигналов создан");
-			} else {
-				System.out.println("Файл логов для сигналов уже существует");
-				java.time.LocalDate currentDate = java.time.LocalDate.now();
-				File fileLogsSignalArchive = new File("/home/user/gadalkaLogs/analizatorLogs/signallogs/" + hackrfID + "_archive_" +currentDate+ ".txt");
-				if (fileLogsSignalArchive.exists()) {
-					appendFile(fileLogsSignal,fileLogsSignalArchive);
-					try (FileWriter writer = new FileWriter(fileLogsSignal, false)) { // false -> перезапись файла (очистка)
-						System.out.println("Файл логов для сигналов успешно очищен.");
-					} catch (IOException e) {
-						System.out.println("Ошибка при очистке файла логов для сигналов.");
-						e.printStackTrace();
-					}
-				}
-				else {
-					/*Files.move(Path.of("/home/user/gadalkaLogs/analizatorLogs/signallogs/" + hackrfID + ".txt"),
-							Path.of("/home/user/gadalkaLogs/analizatorLogs/signallogs/" + hackrfID + "_archive_" +currentDate+ ".txt"),
-							StandardCopyOption.REPLACE_EXISTING);*/
-					//throw new RuntimeException("Some shit");
-				}
-			}
-			String serifDir = "/gadalkaLogs/analizatorLogs/seriflogs";
-			String signalDir = "/gadalkaLogs/analizatorLogs/signallogs";
-			deleteOldLogs(serifDir);
-			deleteOldLogs(signalDir);
-
-		} catch (IOException e) {
-			System.out.println("Ошибка при создании файла");
-			e.printStackTrace();
-		}
+		loggingSetUp();
 
 		configSerif = new ConfigSerif(
 				parameterFrequency.getValue().getStartMHz(),
@@ -638,6 +574,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 		uiFrame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
+				UsrpSweepNativeBridge.unload();
 				super.windowClosing(e);
 				socketIOGadalka.closeConnect();
 				if (hackrfID == "123456789") hackrfID = "";
@@ -702,6 +639,84 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 			}
 		}
 		System.out.println("konec hackrf fun");
+	}
+
+	private static void loggingSetUp() {
+		try {
+
+			File dirFileSerif = new File("/home/user/gadalkaLogs/analizatorLogs/seriflogs");
+			if (!dirFileSerif.exists()) {
+				System.out.println("создание папки seriflogs");
+				dirFileSerif.mkdirs();
+			}
+			File dirFileSignal = new File("/home/user/gadalkaLogs/analizatorLogs/signallogs");
+			if (!dirFileSignal.exists()) {
+				System.out.println("создание папки signallogs");
+				dirFileSignal.mkdirs();
+			}
+			File fileLogsSerif = new File("/home/user/gadalkaLogs/analizatorLogs/seriflogs/"+hackrfID +".txt");
+			if (fileLogsSerif.createNewFile()) {
+				System.out.println("Файл создан");
+			} else {
+				System.out.println("Файл уже существует");
+				java.time.LocalDate currentDate = java.time.LocalDate.now();
+				File fileLogsSerifArchive = new File("/home/user/gadalkaLogs/analizatorLogs/seriflogs/" + hackrfID + "_archive_" +currentDate+ ".txt");
+				if (fileLogsSerifArchive.exists()) {
+					appendFile(fileLogsSerif,fileLogsSerifArchive);
+					try (FileWriter writer = new FileWriter(fileLogsSerif, false)) { // false -> перезапись файла (очистка)
+						System.out.println("Файл успешно очищен.");
+					} catch (IOException e) {
+						System.out.println("Ошибка при очистке файла.");
+						e.printStackTrace();
+					}
+				}
+				else {
+					//throw new RuntimeException("Some shit");
+					/*Files.move(Path.of("/home/user/gadalkaLogs/analizatorLogs/seriflogs/" + hackrfID + ".txt"),
+							Path.of("/home/user/gadalkaLogs/analizatorLogs/seriflogs/" + hackrfID + "_archive_" +currentDate+ ".txt"),
+							StandardCopyOption.REPLACE_EXISTING);
+*/
+				}
+			}
+			File fileLogsSignal = new File("/home/user/gadalkaLogs/analizatorLogs/signallogs/"+hackrfID +".txt");
+			if (fileLogsSignal.createNewFile()) {
+				System.out.println("Файл логов для сигналов создан");
+			} else {
+				System.out.println("Файл логов для сигналов уже существует");
+				java.time.LocalDate currentDate = java.time.LocalDate.now();
+				File fileLogsSignalArchive = new File("/home/user/gadalkaLogs/analizatorLogs/signallogs/" + hackrfID + "_archive_" +currentDate+ ".txt");
+				if (fileLogsSignalArchive.exists()) {
+					appendFile(fileLogsSignal,fileLogsSignalArchive);
+					try (FileWriter writer = new FileWriter(fileLogsSignal, false)) { // false -> перезапись файла (очистка)
+						System.out.println("Файл логов для сигналов успешно очищен.");
+					} catch (IOException e) {
+						System.out.println("Ошибка при очистке файла логов для сигналов.");
+						e.printStackTrace();
+					}
+				}
+				else {
+					/*Files.move(Path.of("/home/user/gadalkaLogs/analizatorLogs/signallogs/" + hackrfID + ".txt"),
+							Path.of("/home/user/gadalkaLogs/analizatorLogs/signallogs/" + hackrfID + "_archive_" +currentDate+ ".txt"),
+							StandardCopyOption.REPLACE_EXISTING);*/
+					//throw new RuntimeException("Some shit");
+				}
+			}
+			String serifDir = "/gadalkaLogs/analizatorLogs/seriflogs";
+			String signalDir = "/gadalkaLogs/analizatorLogs/signallogs";
+			deleteOldLogs(serifDir);
+			deleteOldLogs(signalDir);
+
+		} catch (IOException e) {
+			System.out.println("Ошибка при создании файла");
+			e.printStackTrace();
+		}
+	}
+
+
+	private void init() {
+		System.out.println("Initializing jna");
+		UsrpSweepNativeBridge.init();
+		System.out.println("jna initialized!");
 	}
 
 	@Override
@@ -2141,7 +2156,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 			while (threadHackrfSweep.isAlive()) {
 				forceStopSweep = true;
 				//				System.out.println("Calling HackRFSweepNativeBridge.stop()");
-				HackRFSweepNativeBridge.stop();
+				UsrpSweepNativeBridge.stop();
 				try {
 					Thread.sleep(20);
 				} catch (InterruptedException e) {
@@ -2219,9 +2234,8 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 						+ "  lna: " + parameterGainLNA.getValue() + " vga: " + parameterGainVGA.getValue() + " antenna_lna: "+parameterAntennaLNA.getValue());
 				fireHardwareStateChanged(false);
 				UsrpSweepNativeBridge.init();
-				UsrpSweepNativeBridge.start(this, getFreq().getStartMHz(), getFreq().getEndMHz(),
-						parameterFFTBinHz.getValue(), parameterSamples.getValue(), parameterGainLNA.getValue(),
-						parameterGainVGA.getValue(), parameterAntennaPolarization.getValue(), parameterAntennaLNA.getValue(),hackrfID);
+				UsrpSweepNativeBridge.start(this, getFreq().getStartMHz()* 1e6, getFreq().getEndMHz() * 1e6,
+						parameterSamples.getValue(), (double) parameterGainLNA.getValue() * 1e6);
 				// Сюда в ставлять серийник !!!
 				fireHardwareStateChanged(false);
 

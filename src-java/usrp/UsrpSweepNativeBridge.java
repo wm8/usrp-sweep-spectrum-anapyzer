@@ -40,7 +40,7 @@ public class UsrpSweepNativeBridge {
              * to make sure unpacked jnidispatch.dll is properly loaded
              * jnidispatch.dll is used directly instead of JNA bundled jar, because it is much faster to load
              */
-            String pathPrefix = "C:\\projects\\usrp_reader\\cmake-build-debug-visual-studio\\";// "./" + Platform.RESOURCE_PREFIX + "/";
+            String pathPrefix = "C:\\projects\\usrp_reader\\cmake-build-relwithdebinfo-visual-studio\\";// "./" + Platform.RESOURCE_PREFIX + "/";
             System.setProperty("jna.boot.library.path", pathPrefix);
             System.setProperty("jna.nosys", "true");
             /*Native.DEBUG_JNA_LOAD	= true;
@@ -51,7 +51,8 @@ public class UsrpSweepNativeBridge {
             System.out.println("Trying to load: " + JNA_NATIVE_LIB.getFile());
             Native.register(UsrpSweepLibrary.class, JNA_NATIVE_LIB);
             System.out.println("Loaded: " + JNA_NATIVE_LIB.getFile());
-            System.in.read();
+            UsrpSweepLibrary.usrp_sweep_lib_init();
+
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -60,8 +61,8 @@ public class UsrpSweepNativeBridge {
         return true;
     }
 
-    public static synchronized void start(SweepDataCallback dataCallback, int freq_min_MHz, int freq_max_MHz, int fft_bin_width, int num_samples,
-                                          int lna_gain, int vga_gain, boolean antennaPowerEnable, boolean internalLNA, String serial_number) {
+    public static synchronized void start(SweepDataCallback dataCallback, double freq_min_MHz, double freq_max_MHz, int num_samples,
+                                          double lna_gain) {
         UsrpSweepLibrary.usrp_sweep_lib_start__fft_power_callback_callback callback = new UsrpSweepLibrary.usrp_sweep_lib_start__fft_power_callback_callback()
         {
             @Override public void apply(byte sweep_started, int bins, DoubleByReference freqStart, float fftBinWidth, FloatByReference powerdBm)
@@ -72,7 +73,7 @@ public class UsrpSweepNativeBridge {
             }
         };
         Native.setCallbackThreadInitializer(callback, new CallbackThreadInitializer(true));
-        int result = UsrpSweepLibrary.usrp_sweep_lib_start(callback, freq_min_MHz, freq_max_MHz, fft_bin_width, num_samples, lna_gain, vga_gain, antennaPowerEnable ? 1 : 0, internalLNA ? 1 : 0, serial_number);
+        int result = UsrpSweepLibrary.usrp_sweep_lib_start(callback, freq_min_MHz, freq_max_MHz, num_samples, lna_gain);
 
         if (result != 0) {
             dataCallback.errorData(result);
@@ -82,5 +83,9 @@ public class UsrpSweepNativeBridge {
     public static void stop()
     {
         UsrpSweepLibrary.usrp_sweep_lib_stop();
+    }
+
+    public static void unload() {
+        UsrpSweepLibrary.usrp_sweep_lib_unload();
     }
 }

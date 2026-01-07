@@ -10,7 +10,9 @@ public class UsrpSweepLibrary {
     };
 
     public static native void usrp_sweep_lib_init();
-    public static native int usrp_sweep_lib_start(usrp_sweep_lib_start__fft_power_callback_callback _fft_power_callback, int freq_min, int freq_max, int fft_bin_width, int num_samples, int lna_gain, int vga_gain, int _antennaPowerEnable, int _enableAntennaLNA, String serial_number);
+    public static native int usrp_sweep_lib_start(
+            usrp_sweep_lib_start__fft_power_callback_callback _fft_power_callback,
+            double freq_min, double freq_max, int NFFT, double gain_db);
     public static native void usrp_sweep_lib_stop();
     public static native void usrp_sweep_lib_unload();
 }
