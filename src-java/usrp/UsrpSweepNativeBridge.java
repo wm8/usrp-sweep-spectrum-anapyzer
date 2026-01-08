@@ -14,23 +14,6 @@ public class UsrpSweepNativeBridge {
     public static NativeLibrary JNA_NATIVE_LIB;
     private static boolean initialized = false;
 
-    public static void loadMinGW() {
-        try {
-            String dir = "C:\\projects\\usrp_reader\\cmake-build-defaulttoolchain";
-
-            // 1) грузим DLL (как ты уже сделал)
-            System.load(dir + "\\usrp-sweep.dll");
-
-            // 2) делаем JNA binding: связываем native методы с экспортами DLL
-            NativeLibrary lib = NativeLibrary.getInstance(dir + "\\usrp-sweep.dll");
-            Native.register(UsrpSweepLibrary.class, lib);
-            System.in.read();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        initialized = true;
-    }
-
     public static synchronized boolean init() {
         if (initialized) {
             return true;
@@ -40,7 +23,7 @@ public class UsrpSweepNativeBridge {
              * to make sure unpacked jnidispatch.dll is properly loaded
              * jnidispatch.dll is used directly instead of JNA bundled jar, because it is much faster to load
              */
-            String pathPrefix = "C:\\projects\\usrp_reader\\cmake-build-relwithdebinfo-visual-studio\\";// "./" + Platform.RESOURCE_PREFIX + "/";
+            String pathPrefix = "C:\\projects\\usrp_reader\\cmake-build-debug-visual-studio\\";// "./" + Platform.RESOURCE_PREFIX + "/";
             System.setProperty("jna.boot.library.path", pathPrefix);
             System.setProperty("jna.nosys", "true");
             /*Native.DEBUG_JNA_LOAD	= true;
@@ -51,7 +34,11 @@ public class UsrpSweepNativeBridge {
             System.out.println("Trying to load: " + JNA_NATIVE_LIB.getFile());
             Native.register(UsrpSweepLibrary.class, JNA_NATIVE_LIB);
             System.out.println("Loaded: " + JNA_NATIVE_LIB.getFile());
-            UsrpSweepLibrary.usrp_sweep_lib_init();
+            var code = UsrpSweepLibrary.InitialReturnCode.fromValue(UsrpSweepLibrary.usrp_sweep_lib_init());
+            if (code != UsrpSweepLibrary.InitialReturnCode.OK) {
+                //TODO make normal error handler
+                throw new RuntimeException("Library failed to load: " + JNA_NATIVE_LIB.getFile() + ", returnCode: " + code.name() + ": " + code.getDescription());
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -63,6 +50,9 @@ public class UsrpSweepNativeBridge {
 
     public static synchronized void start(SweepDataCallback dataCallback, double freq_min_MHz, double freq_max_MHz, int num_samples,
                                           double lna_gain) {
+        if (!initialized) {
+            throw new IllegalStateException("UsrpSweepNativeBridge not initialized");
+        }
         UsrpSweepLibrary.usrp_sweep_lib_start__fft_power_callback_callback callback = new UsrpSweepLibrary.usrp_sweep_lib_start__fft_power_callback_callback()
         {
             @Override public void apply(byte sweep_started, int bins, DoubleByReference freqStart, float fftBinWidth, FloatByReference powerdBm)
