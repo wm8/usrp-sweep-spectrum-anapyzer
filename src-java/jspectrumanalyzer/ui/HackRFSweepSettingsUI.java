@@ -3,6 +3,7 @@ package jspectrumanalyzer.ui;
 import io.reactivex.rxjava3.disposables.Disposable;
 import jspectrumanalyzer.HackRFSweepSpectrumAnalyzer;
 import jspectrumanalyzer.Version;
+import jspectrumanalyzer.config.ReceiverCharacteristics;
 import jspectrumanalyzer.core.*;
 import jspectrumanalyzer.enciderinterface.SocketDataListener;
 import jspectrumanalyzer.socket.SocketIOGadalka;
@@ -94,8 +95,8 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 
 		setForeground(Color.WHITE);
 		setBackground(Color.BLACK);
-		int minFreq = 1;
-		int maxFreq = 7250;
+		int minFreq = ReceiverCharacteristics.MIN_HZ;
+		int maxFreq = ReceiverCharacteristics.MAX_HZ;
 		int freqStep = 1;
 
 
