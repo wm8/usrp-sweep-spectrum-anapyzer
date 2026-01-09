@@ -39,22 +39,22 @@ public class HackRFSettingsTabUI {
         hackRfOptionsTab.setForeground(Color.WHITE);
         hackRfOptionsTab.setBackground(Color.BLACK);
 
-        JLabel lblGain = new JLabel("Усиление [dB]");
+        /*JLabel lblGain = new JLabel("Усиление [dB]");
         lblGain.setForeground(Color.WHITE);
-        //tab1.add(lblGain, "cell 0 0");
+        hackRfOptionsTab.add(lblGain, "cell 0 0");
 
 
         sliderGain = new JSlider(JSlider.HORIZONTAL, 0, 100, 2);
         sliderGain.setFont(new Font("Monospaced", Font.BOLD, 16));
         sliderGain.setBackground(Color.BLACK);
         sliderGain.setForeground(Color.WHITE);
+        hackRfOptionsTab.add(sliderGain, "flowy,cell 0 1,growx");
         new MVCController(sliderGain, hRF.getGain());
-
-        //tab1.add(sliderGain, "flowy,cell 0 1,growx");
+        */
 
         JLabel lbl_gainValue = new JLabel(hRF.getGain() + "dB");
         lbl_gainValue.setForeground(Color.WHITE);
-        //tab1.add(lbl_gainValue, "cell 0 1,alignx right");
+        hackRfOptionsTab.add(lbl_gainValue, "cell 0 1,alignx right");
 
         JLabel lblNewLabel_2 = new JLabel("LNA Усиление [dB]");
         lblNewLabel_2.setForeground(Color.WHITE);
