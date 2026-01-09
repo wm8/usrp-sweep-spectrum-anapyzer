@@ -1,9 +1,6 @@
 package jspectrumanalyzer.ui;
 
-import hackrfsweep.ui.HackRFSettingsTabUI;
 import io.reactivex.rxjava3.disposables.Disposable;
-import jspectrumanalyzer.HackRFSweepSpectrumAnalyzer;
-import jspectrumanalyzer.Version;
 import jspectrumanalyzer.config.ReceiverCharacteristics;
 import jspectrumanalyzer.core.*;
 import jspectrumanalyzer.enciderinterface.SocketDataListener;
@@ -13,6 +10,7 @@ import net.miginfocom.swing.MigLayout;
 import protoModels.FrequencyRangeProto;
 import protoModels.SerifGadalkaProto;
 import shared.mvc.MVCController;
+import usrp.ui.UsrpSettingsTabUI;
 
 import javax.swing.*;
 import javax.swing.JSpinner.ListEditor;
@@ -80,7 +78,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 	private JLabel lblSubRange;
 
 
-	private final HackRFSettingsTabUI hackRFSettingsTabUI;
+	private final UsrpSettingsTabUI usrpSettingsTabUI;
 	/**
 	 * Create the panel.
 	 */
@@ -267,14 +265,14 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		tabbedPane.setForeground(Color.WHITE);
 		tabbedPane.setBackground(Color.BLACK);
 
-		hackRFSettingsTabUI = new HackRFSettingsTabUI(hRF);
-		JPanel hackRfOptionsTab = hackRFSettingsTabUI.initHackRFSettingsTab();
+		usrpSettingsTabUI = new UsrpSettingsTabUI(hRF);
+		JPanel usrpSettingsTab = usrpSettingsTabUI.initUsrpSettingsTab();
 
 		JPanel GraphOptionsTab	= new JPanel(new MigLayout("", "[123.00px,grow,leading]", "[][0][][][0][][][0][][0][][][0][][0][][][0][0][][][0][][0][grow,fill]"));
 		GraphOptionsTab.setForeground(Color.WHITE);
 		GraphOptionsTab.setBackground(Color.BLACK);
 		
-		tabbedPane.addTab(hackRFSettingsTabUI.getTabName(), hackRfOptionsTab);
+		tabbedPane.addTab(usrpSettingsTabUI.getTabName(), usrpSettingsTab);
 		tabbedPane.addTab("Опции графика ", GraphOptionsTab);
 		tabbedPane.setForegroundAt(1, Color.BLACK);
 		tabbedPane.setBackgroundAt(1, Color.WHITE);
@@ -659,7 +657,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 			System.out.println(currentTime.format(formatter));
 			newItem = new JLabel(currentDate + " " + currentTime.format(formatter) + " " +startMHz + "-" + endMHz + ", азимут " +azimuthForSerif);
 			//TODO: what a panel????
-			JPanel panel = hackRFSettingsTabUI.getPanel();
+			JPanel panel = usrpSettingsTabUI.getPanel();
 			panel.add(newItem);
 			panel.revalidate();  // Обновляем панель после добавления нового элемента
 			panel.repaint();
@@ -717,7 +715,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 				varSerif = Objects.requireNonNull(comboBoxSerifVariants.getSelectedItem()).toString();
 			newItem = new JLabel(currentTime.format(formatter) + " " +startMHz + "-" + endMHz + ", азимут " +azimuth + ", " + "максимальный Dbm " + maxDbm + ", " +  varSerif);
 			//TODO: what a panel????
-			JPanel panel = hackRFSettingsTabUI.getPanel();
+			JPanel panel = usrpSettingsTabUI.getPanel();
 			panel.add(newItem);
 
 			panel.revalidate();  // Обновляем панель после добавления нового элемента

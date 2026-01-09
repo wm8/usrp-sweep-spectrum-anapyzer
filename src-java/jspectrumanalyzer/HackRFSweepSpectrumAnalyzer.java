@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import jspectrumanalyzer.capture.ScreenCapture;
+import jspectrumanalyzer.config.ReceiverCharacteristics;
 import jspectrumanalyzer.core.*;
 import jspectrumanalyzer.core.jfc.XYSeriesCollectionImmutable;
 import jspectrumanalyzer.core.jfc.XYSeriesImmutable;
@@ -158,7 +159,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 	public static int freqEnd = 2500;
 	public static int parametrGainLNA = 0;
 	public static int parametrGainVGA = 0;
-	public static int totalgain = 0;
+	public static int totalgain = ReceiverCharacteristics.START_GAIN_DB;
 	public static int samplesapp = 8192;
 	public static int FFTBinHz = 100000;
 	public static boolean showPeaks = false;
@@ -305,7 +306,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 	private ModelValue<FrequencyAllocationTable>	parameterFrequencyAllocationTable	= new ModelValue<FrequencyAllocationTable>("Frequency allocation table", null);
 
 	private ModelValueInt							parameterGainLNA					= new ModelValueInt("LNA Gain",parametrGainLNA, 1, 0, 40);
-	private ModelValueInt							parameterGainTotal					= new ModelValueInt("Gain [dB]", totalgain);
+	private ModelValueInt							parameterGainTotal					= new ModelValueInt("Gain [dB]", totalgain, 1, ReceiverCharacteristics.MIN_GAIN_DB, ReceiverCharacteristics.MAX_GAIN_DB);
 	private ModelValueInt							parameterGainVGA					= new ModelValueInt("VGA Gain", parametrGainVGA, 1, 0, 60);
 	private ModelValueBoolean						parameterIsCapturingPaused			= new ModelValueBoolean("Capturing paused", false);
 
@@ -1563,16 +1564,19 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 	}
 
 	private void recalculateGains(int totalGain) {
+
 		/**
 		 * use only lna gain when <=40 when >40, add only vga gain
 		 */
-		int lnaGain = totalGain / 8 * 8; //lna gain has step 8, range <0, 40>
-		if (lnaGain > 40)
-			lnaGain = 40;
-		int vgaGain = lnaGain != 40 ? 0 : ((totalGain - lnaGain) & ~1); //vga gain has step 2, range <0,60>
-		this.parameterGainLNA.setValue(lnaGain);
-		this.parameterGainVGA.setValue(vgaGain);
-		this.parameterGainTotal.setValue(lnaGain + vgaGain);
+		if (false) {
+			int lnaGain = totalGain / 8 * 8; //lna gain has step 8, range <0, 40>
+			if (lnaGain > 40)
+				lnaGain = 40;
+			int vgaGain = lnaGain != 40 ? 0 : ((totalGain - lnaGain) & ~1); //vga gain has step 2, range <0,60>
+			this.parameterGainLNA.setValue(lnaGain);
+			this.parameterGainVGA.setValue(vgaGain);
+			this.parameterGainTotal.setValue(lnaGain + vgaGain);
+		}
 	}
 
 	/**
@@ -2235,7 +2239,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 				fireHardwareStateChanged(false);
 				UsrpSweepNativeBridge.init();
 				UsrpSweepNativeBridge.start(this, getFreq().getStartMHz()* 1e6, getFreq().getEndMHz() * 1e6,
-						parameterSamples.getValue(), (double) parameterGainLNA.getValue() * 1e6);
+						parameterSamples.getValue(), (double) getGain().getValue());
 				// Сюда в ставлять серийник !!!
 				fireHardwareStateChanged(false);
 
