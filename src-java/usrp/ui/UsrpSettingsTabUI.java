@@ -51,6 +51,9 @@ public class UsrpSettingsTabUI {
         new MVCController(sliderGain, hRF.getGain());
         */
         JLabel gainLabel = new JLabel(String.format("Усиление [dB]: %ddB", hRF.getGain().getValue()));
+        hRF.getGain().addListener((gain) ->
+                gainLabel.setText(String.format("Усиление [dB]: %ddB", gain)));
+
         gainLabel.setForeground(Color.WHITE);
         usrpOptionsTab.add(gainLabel, "cell 0 3");
 
@@ -87,8 +90,8 @@ public class UsrpSettingsTabUI {
         sliderGain.setMinorTickSpacing(hRF.getGain().getStep());
         new MVCController(sliderGain, hRF.getGain());
 
-
-        JLabel lblWaterfallPaletteStart = new JLabel("Старт палитры водопада [dB]");
+        // "Старт палитры водопада" setting set up
+        JLabel lblWaterfallPaletteStart = new JLabel(String.format("Старт палитры водопада [dB]: %ddB", hRF.getSpectrumPaletteStart().getValue()));
         lblWaterfallPaletteStart.setForeground(Color.WHITE);
         usrpOptionsTab.add(lblWaterfallPaletteStart, "cell 0 8");
 
@@ -120,21 +123,20 @@ public class UsrpSettingsTabUI {
         usrpOptionsTab.add(panelPaletteStart, "cell 0 9,growx");
 
         new MVCController(slider_waterfallPaletteStart, hRF.getSpectrumPaletteStart());
+        hRF.getSpectrumPaletteStart().addListener((db) ->
+                lblWaterfallPaletteStart.setText(String.format("Старт палитры водопада [dB]: %ddB", db)));
 
 
-        JLabel lblWaterfallPaletteLength = new JLabel("Размер палитры водопада [dB]");
+        // "Размер палитры водопада" setting set up
+        JLabel lblWaterfallPaletteLength = new JLabel(
+                String.format("Размер палитры водопада [dB]: %ddB", hRF.getSpectrumPaletteSize().getValue()));
         lblWaterfallPaletteLength.setForeground(Color.WHITE);
         usrpOptionsTab.add(lblWaterfallPaletteLength, "cell 0 10");
-
-
         slider_waterfallPaletteSize = new JSlider(HackRFSweepSpectrumAnalyzer.SPECTRUM_PALETTE_SIZE_MIN, 100);
         slider_waterfallPaletteSize.setBackground(Color.BLACK);
         slider_waterfallPaletteSize.setForeground(Color.WHITE);
-
-
         JButton leftPaletteSizeButton = new JButton("←");
         JButton rightPaletteSizeButton = new JButton("→");
-
         leftPaletteSizeButton.addActionListener((ActionEvent e) -> {
             slider_waterfallPaletteSize.setValue(slider_waterfallPaletteSize.getValue() - 1);
         });
@@ -152,9 +154,10 @@ public class UsrpSettingsTabUI {
 
         usrpOptionsTab.add(panelPaletteSize, "cell 0 11,growx");
         new MVCController(slider_waterfallPaletteSize, hRF.getSpectrumPaletteSize());
+        hRF.getSpectrumPaletteSize().addListener((db) ->
+                lblWaterfallPaletteLength.setText(String.format("Размер палитры водопада [dB]: %ddB", db)));
 
-
-
+        // "Антенное усиление" setting set up
         JLabel lblLNAEnable = new JLabel("Антенное усиление +14dB");
         lblLNAEnable.setForeground(Color.WHITE);
         usrpOptionsTab.add(lblLNAEnable, "flowx,cell 0 14,growx");
@@ -166,9 +169,6 @@ public class UsrpSettingsTabUI {
         usrpOptionsTab.add(chckbxAntennaLNA, "cell 0 14,alignx right");
         new MVCController(chckbxAntennaLNA, hRF.getAntennaLNA());
 
-
-        hRF.getGain().addListener((gain) ->
-                gainLabel.setText(String.format("Усиление [dB]: %ddB", gain)));
 
 
         panel = new JPanel();
