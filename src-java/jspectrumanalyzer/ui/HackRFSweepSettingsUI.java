@@ -288,193 +288,33 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		tabbedPane.setBackgroundAt(0, Color.WHITE);
 
 		//tab1
-		{
-			JLabel lblGain = new JLabel("Усиление [dB]");
-			lblGain.setForeground(Color.WHITE);
-			//tab1.add(lblGain, "cell 0 0");
+		initHackRFSettingsTab(hackRFSettings, hackRfOptionsTab);
 
-			sliderGain = new JSlider(JSlider.HORIZONTAL, 0, 100, 2);
-			sliderGain.setFont(new Font("Monospaced", Font.BOLD, 16));
-			sliderGain.setBackground(Color.BLACK);
-			sliderGain.setForeground(Color.WHITE);
-			//tab1.add(sliderGain, "flowy,cell 0 1,growx");
+		initGraphSettingsTab(GraphOptionsTab);
 
-			JLabel lbl_gainValue = new JLabel(hackRFSettings.getGain() + "dB");
-			lbl_gainValue.setForeground(Color.WHITE);
-			//tab1.add(lbl_gainValue, "cell 0 1,alignx right");
-
-			JLabel lblNewLabel_2 = new JLabel("LNA Усиление [dB]");
-			lblNewLabel_2.setForeground(Color.WHITE);
-			hackRfOptionsTab.add(lblNewLabel_2, "cell 0 3");
-
-			sliderGainLNA = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 2);
-			sliderGainLNA.setForeground(Color.WHITE);
-			sliderGainLNA.setFont(new Font("Monospaced", Font.BOLD, 16));
-			sliderGainLNA.setBackground(Color.BLACK);
-
-
-
-			JButton leftLNAButton = new JButton("←");
-			JButton rightLNAButton = new JButton("→");
-
-			leftLNAButton.addActionListener((ActionEvent e) -> {
-				sliderGainLNA.setValue(sliderGainLNA.getValue() - 1);
-			});
-
-			rightLNAButton.addActionListener((ActionEvent e) -> {
-				sliderGainLNA.setValue(sliderGainLNA.getValue() + 1);
-			});
-
-			JPanel panelLNA = new JPanel(new BorderLayout());
-			panelLNA.setOpaque(false); // Делаем панель прозрачной
-			panelLNA.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // Отступы по 10 пикселей
-			panelLNA.add(leftLNAButton, BorderLayout.WEST);
-			panelLNA.add(sliderGainLNA, BorderLayout.CENTER);
-			panelLNA.add(rightLNAButton, BorderLayout.EAST);
-
-			hackRfOptionsTab.add(panelLNA, "cell 0 4,growx");
-
-			
-			JLabel lblVgfaGaindb = new JLabel("VGA Усиление [dB]");
-			lblVgfaGaindb.setForeground(Color.WHITE);
-			hackRfOptionsTab.add(lblVgfaGaindb, "cell 0 6");
-
-			sliderGainVGA = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 2);
-			sliderGainVGA.setForeground(Color.WHITE);
-			sliderGainVGA.setFont(new Font("Monospaced", Font.BOLD, 16));
-			sliderGainVGA.setBackground(Color.BLACK);
-
-			JButton leftVGAButton = new JButton("←");
-			JButton rightVGAButton = new JButton("→");
-
-			leftVGAButton.addActionListener((ActionEvent e) -> {
-				sliderGainVGA.setValue(sliderGainVGA.getValue() - 1);
-			});
-
-			rightVGAButton.addActionListener((ActionEvent e) -> {
-				sliderGainVGA.setValue(sliderGainVGA.getValue() + 1);
-			});
-
-			JPanel panelVGA = new JPanel(new BorderLayout());
-			panelVGA.setOpaque(false); // Делаем панель прозрачной
-			panelVGA.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // Отступы по 10 пикселей
-			panelVGA.add(leftVGAButton, BorderLayout.WEST);
-			panelVGA.add(sliderGainVGA, BorderLayout.CENTER);
-			panelVGA.add(rightVGAButton, BorderLayout.EAST);
-			hackRfOptionsTab.add(panelVGA, "cell 0 7,growx");
-
-			JLabel lblWaterfallPaletteStart = new JLabel("Старт палитры водопада [dB]");
-			lblWaterfallPaletteStart.setForeground(Color.WHITE);
-			hackRfOptionsTab.add(lblWaterfallPaletteStart, "cell 0 8");
-
-			slider_waterfallPaletteStart = new JSlider();
-			slider_waterfallPaletteStart.setForeground(Color.WHITE);
-			slider_waterfallPaletteStart.setBackground(Color.BLACK);
-			slider_waterfallPaletteStart.setMinimum(-100);
-			slider_waterfallPaletteStart.setMaximum(0);
-			slider_waterfallPaletteStart.setValue(-30);
-
-			JButton leftPaletteStartButton = new JButton("←");
-			JButton rightPaletteStartButton = new JButton("→");
-
-			leftPaletteStartButton.addActionListener((ActionEvent e) -> {
-				slider_waterfallPaletteStart.setValue(slider_waterfallPaletteStart.getValue() - 1);
-			});
-
-			rightPaletteStartButton.addActionListener((ActionEvent e) -> {
-				slider_waterfallPaletteStart.setValue(slider_waterfallPaletteStart.getValue() + 1);
-			});
-
-			JPanel panelPaletteStart = new JPanel(new BorderLayout());
-			panelPaletteStart.setOpaque(false); // Делаем панель прозрачной
-			panelPaletteStart.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // Отступы по 10 пикселей
-			panelPaletteStart.add(leftPaletteStartButton, BorderLayout.WEST);
-			panelPaletteStart.add(slider_waterfallPaletteStart, BorderLayout.CENTER);
-			panelPaletteStart.add(rightPaletteStartButton, BorderLayout.EAST);
-
-			hackRfOptionsTab.add(panelPaletteStart, "cell 0 9,growx");
-
-
-			JLabel lblWaterfallPaletteLength = new JLabel("Размер палитры водопада [dB]");
-			lblWaterfallPaletteLength.setForeground(Color.WHITE);
-			hackRfOptionsTab.add(lblWaterfallPaletteLength, "cell 0 10");
-
-
-
-
-			slider_waterfallPaletteSize = new JSlider(HackRFSweepSpectrumAnalyzer.SPECTRUM_PALETTE_SIZE_MIN, 100);
-			slider_waterfallPaletteSize.setBackground(Color.BLACK);
-			slider_waterfallPaletteSize.setForeground(Color.WHITE);
-
-			JButton leftPaletteSizeButton = new JButton("←");
-			JButton rightPaletteSizeButton = new JButton("→");
-
-			leftPaletteSizeButton.addActionListener((ActionEvent e) -> {
-				slider_waterfallPaletteSize.setValue(slider_waterfallPaletteSize.getValue() - 1);
-			});
-
-			rightPaletteSizeButton.addActionListener((ActionEvent e) -> {
-				slider_waterfallPaletteSize.setValue(slider_waterfallPaletteSize.getValue() + 1);
-			});
-
-			JPanel panelPaletteSize = new JPanel(new BorderLayout());
-			panelPaletteSize.setOpaque(false); // Делаем панель прозрачной
-			panelPaletteSize.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // Отступы по 10 пикселей
-			panelPaletteSize.add(leftPaletteSizeButton, BorderLayout.WEST);
-			panelPaletteSize.add(slider_waterfallPaletteSize, BorderLayout.CENTER);
-			panelPaletteSize.add(rightPaletteSizeButton, BorderLayout.EAST);
-
-			hackRfOptionsTab.add(panelPaletteSize, "cell 0 11,growx");
-
-			
-			JLabel lblLNAEnable = new JLabel("Антенное усиление +14dB");
-			lblLNAEnable.setForeground(Color.WHITE);
-			hackRfOptionsTab.add(lblLNAEnable, "flowx,cell 0 14,growx");
-
-			chckbxAntennaLNA = new JCheckBox("");
-			chckbxAntennaLNA.setHorizontalTextPosition(SwingConstants.LEADING);
-			chckbxAntennaLNA.setBackground(Color.BLACK);
-			chckbxAntennaLNA.setForeground(Color.WHITE);
-			hackRfOptionsTab.add(chckbxAntennaLNA, "cell 0 14,alignx right");
-
-			
-
-
-
-			hackRFSettings.getGain().addListener((gain) -> lbl_gainValue.setText(String.format(" %ddB  [LNA: %ddB  VGA: %ddB]",
-					gain, hackRFSettings.getGainLNA().getValue(), hackRFSettings.getGainVGA().getValue())));
-
-
-
-
-
-			panel = new JPanel();
-			panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-			JScrollPane scrollPane = new JScrollPane(panel);
-
-			scrollPane.setPreferredSize(new Dimension(100, 150));
-			JPanel outerPanel = new JPanel(new BorderLayout());
-			outerPanel.add(scrollPane, BorderLayout.CENTER);
-			hackRfOptionsTab.add(outerPanel,"flowx,cell 0 17,growx");
-
-			/*JLabel lblAntennaPower = new JLabel("Поляризация антенны");
-			lblAntennaPower.setForeground(Color.WHITE);
-			tab1.add(lblAntennaPower, "flowx,cell 0 18,growx");
-
-			chckbxAntennaPower = new JCheckBox("");
-			chckbxAntennaPower.setHorizontalTextPosition(SwingConstants.LEADING);
-			chckbxAntennaPower.setBackground(Color.BLACK);
-			chckbxAntennaPower.setForeground(Color.WHITE);
-			tab1.add(chckbxAntennaPower, "cell 0 18,alignx right");
-			Label labelVersion = new Label("Версия: "+ Version.version);
-			tab1.add(labelVersion, "flowx,cell 0 19");*/
-
+		bindViewToModel();
+		if (Objects.equals(socket.getIsConnected(), "подключен")){
+			socketStatus.setText("Сокет " + socket.getIsConnected());
+			socketStatus.setIcon(checkIcon);
 		}
 
+		comboBoxSerifVariants.addItemListener(e -> {
+			if (e.getStateChange() == ItemEvent.SELECTED) {
+				boolean visible = "Мульти максимум".equals(e.getItem());
+				lblSubRange.setVisible(visible);
+				comboBoxSubRange.setVisible(visible);
+				GraphOptionsTab.revalidate(); // Перерисовка компонента
+				GraphOptionsTab.repaint();
+			}
+		});
+
+	}
+
+	private void initGraphSettingsTab(JPanel GraphOptionsTab) {
 		chckbxFilterSpectrum = new JCheckBox("Filter spectrum");
 		chckbxFilterSpectrum.setBackground(Color.BLACK);
 		chckbxFilterSpectrum.setForeground(Color.WHITE);
-		
+
 		JLabel lblWaterfallEnabled = new JLabel("Водопад включен");
 
 		lblWaterfallEnabled.setForeground(Color.WHITE);
@@ -563,7 +403,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		GraphOptionsTab.add(lblNumberOfSamples, "cell 0 6");
 
 		spinner_numberOfSamples = new JSpinner();
-		spinner_numberOfSamples.setModel(new SpinnerListModel(new String[] { "8192", "16384", "32768", "65536", "131072", "262144" }));
+		spinner_numberOfSamples.setModel(new SpinnerListModel(new String[] { "1024", "2048", "4096", "8192", "16384", "32768", "65536", "131072", "262144" }));
 		spinner_numberOfSamples.setFont(new Font("Monospaced", Font.BOLD, 16));
 		((ListEditor) spinner_numberOfSamples.getEditor()).getTextField().setHorizontalAlignment(JTextField.RIGHT);
 		((ListEditor) spinner_numberOfSamples.getEditor()).getTextField().setEditable(false);
@@ -592,8 +432,6 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		slider_waterfallPaletteSize.setForeground(Color.WHITE);
 		GraphOptionsTab.add(slider_waterfallPaletteSize, "cell 0 7,growx");*/
 
-		
-
 
 		JLabel lblLoseCounter = new JLabel("Каунтер потери сигнала");
 		lblLoseCounter.setForeground(Color.WHITE);
@@ -612,7 +450,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
                 5, 10, 15, 20, 25, 30
 		});
 		GraphOptionsTab.add(comboBoxCounterSignal, "cell 0 9,alignx right");
-		
+
 		JLabel lblShowPeaks = new JLabel("Показывать пик");
 		lblShowPeaks.setForeground(Color.WHITE);
 		GraphOptionsTab.add(lblShowPeaks, "flowx,cell 0 10,growx");
@@ -640,6 +478,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		chckbxRemoveSpurs.setBackground(Color.BLACK);
 		GraphOptionsTab.add(chckbxRemoveSpurs, "cell 0 13,alignx right");
 
+
 		JLabel lblSpectrLineThickness = new JLabel("Толщина линии спектра");
 		lblSpectrLineThickness.setForeground(Color.WHITE);
 		GraphOptionsTab.add(lblSpectrLineThickness, "flowx,cell 0 14,growx");
@@ -648,9 +487,8 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 				new BigDecimal("1"), new BigDecimal("1.5"), new BigDecimal("2"), new BigDecimal("3")
 		});
 		GraphOptionsTab.add(comboBoxLineThickness, "cell 0 14,alignx right");
-		
 
-		
+
 		lblPersistentDisplay = new JLabel("Постоянное отображение");
 		lblPersistentDisplay.setForeground(Color.WHITE);
 		GraphOptionsTab.add(lblPersistentDisplay, "flowx,cell 0 15,growx");
@@ -659,7 +497,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		checkBoxPersistentDisplay.setForeground(Color.WHITE);
 		checkBoxPersistentDisplay.setBackground(Color.BLACK);
 		GraphOptionsTab.add(checkBoxPersistentDisplay, "cell 0 15,alignx right");
-		
+
 		lblDecayRate = new JLabel("  Время отображения [s]");
 		lblDecayRate.setForeground(Color.WHITE);
 		GraphOptionsTab.add(lblDecayRate, "flowx,cell 0 16,growx");
@@ -678,7 +516,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		isCrossCheckBox.setBackground(Color.BLACK);
 		GraphOptionsTab.add(isCrossCheckBox, "cell 0 17,alignx right");
 
-		
+
 		JLabel lblDisplayFrequencyAllocation = new JLabel("Полоса распределения частот");
 		lblDisplayFrequencyAllocation.setForeground(Color.WHITE);
 		GraphOptionsTab.add(lblDisplayFrequencyAllocation, "cell 0 19");
@@ -701,25 +539,184 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 		checkBoxDebugDisplay.setForeground(Color.WHITE);
 		checkBoxDebugDisplay.setBackground(Color.BLACK);
 		GraphOptionsTab.add(checkBoxDebugDisplay, "cell 0 22,alignx right");
-
-		bindViewToModel();
-		if (Objects.equals(socket.getIsConnected(), "подключен")){
-			socketStatus.setText("Сокет " + socket.getIsConnected());
-			socketStatus.setIcon(checkIcon);
-		}
-
-		comboBoxSerifVariants.addItemListener(e -> {
-			if (e.getStateChange() == ItemEvent.SELECTED) {
-				boolean visible = "Мульти максимум".equals(e.getItem());
-				lblSubRange.setVisible(visible);
-				comboBoxSubRange.setVisible(visible);
-				GraphOptionsTab.revalidate(); // Перерисовка компонента
-				GraphOptionsTab.repaint();
-			}
-		});
-
 	}
 
+	private void initHackRFSettingsTab(HackRFSettings hackRFSettings, JPanel hackRfOptionsTab) {
+		JLabel lblGain = new JLabel("Усиление [dB]");
+		lblGain.setForeground(Color.WHITE);
+		//tab1.add(lblGain, "cell 0 0");
+
+		sliderGain = new JSlider(JSlider.HORIZONTAL, 0, 100, 2);
+		sliderGain.setFont(new Font("Monospaced", Font.BOLD, 16));
+		sliderGain.setBackground(Color.BLACK);
+		sliderGain.setForeground(Color.WHITE);
+		//tab1.add(sliderGain, "flowy,cell 0 1,growx");
+
+		JLabel lbl_gainValue = new JLabel(hackRFSettings.getGain() + "dB");
+		lbl_gainValue.setForeground(Color.WHITE);
+		//tab1.add(lbl_gainValue, "cell 0 1,alignx right");
+
+		JLabel lblNewLabel_2 = new JLabel("LNA Усиление [dB]");
+		lblNewLabel_2.setForeground(Color.WHITE);
+		hackRfOptionsTab.add(lblNewLabel_2, "cell 0 3");
+
+		sliderGainLNA = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 2);
+		sliderGainLNA.setForeground(Color.WHITE);
+		sliderGainLNA.setFont(new Font("Monospaced", Font.BOLD, 16));
+		sliderGainLNA.setBackground(Color.BLACK);
+
+
+		JButton leftLNAButton = new JButton("←");
+		JButton rightLNAButton = new JButton("→");
+
+		leftLNAButton.addActionListener((ActionEvent e) -> {
+			sliderGainLNA.setValue(sliderGainLNA.getValue() - 1);
+		});
+
+		rightLNAButton.addActionListener((ActionEvent e) -> {
+			sliderGainLNA.setValue(sliderGainLNA.getValue() + 1);
+		});
+
+		JPanel panelLNA = new JPanel(new BorderLayout());
+		panelLNA.setOpaque(false); // Делаем панель прозрачной
+		panelLNA.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // Отступы по 10 пикселей
+		panelLNA.add(leftLNAButton, BorderLayout.WEST);
+		panelLNA.add(sliderGainLNA, BorderLayout.CENTER);
+		panelLNA.add(rightLNAButton, BorderLayout.EAST);
+
+		hackRfOptionsTab.add(panelLNA, "cell 0 4,growx");
+
+
+		JLabel lblVgfaGaindb = new JLabel("VGA Усиление [dB]");
+		lblVgfaGaindb.setForeground(Color.WHITE);
+		hackRfOptionsTab.add(lblVgfaGaindb, "cell 0 6");
+
+		sliderGainVGA = new JSlider(SwingConstants.HORIZONTAL, 0, 100, 2);
+		sliderGainVGA.setForeground(Color.WHITE);
+		sliderGainVGA.setFont(new Font("Monospaced", Font.BOLD, 16));
+		sliderGainVGA.setBackground(Color.BLACK);
+
+		JButton leftVGAButton = new JButton("←");
+		JButton rightVGAButton = new JButton("→");
+
+		leftVGAButton.addActionListener((ActionEvent e) -> {
+			sliderGainVGA.setValue(sliderGainVGA.getValue() - 1);
+		});
+
+		rightVGAButton.addActionListener((ActionEvent e) -> {
+			sliderGainVGA.setValue(sliderGainVGA.getValue() + 1);
+		});
+
+		JPanel panelVGA = new JPanel(new BorderLayout());
+		panelVGA.setOpaque(false); // Делаем панель прозрачной
+		panelVGA.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // Отступы по 10 пикселей
+		panelVGA.add(leftVGAButton, BorderLayout.WEST);
+		panelVGA.add(sliderGainVGA, BorderLayout.CENTER);
+		panelVGA.add(rightVGAButton, BorderLayout.EAST);
+		hackRfOptionsTab.add(panelVGA, "cell 0 7,growx");
+
+		JLabel lblWaterfallPaletteStart = new JLabel("Старт палитры водопада [dB]");
+		lblWaterfallPaletteStart.setForeground(Color.WHITE);
+		hackRfOptionsTab.add(lblWaterfallPaletteStart, "cell 0 8");
+
+		slider_waterfallPaletteStart = new JSlider();
+		slider_waterfallPaletteStart.setForeground(Color.WHITE);
+		slider_waterfallPaletteStart.setBackground(Color.BLACK);
+		slider_waterfallPaletteStart.setMinimum(-100);
+		slider_waterfallPaletteStart.setMaximum(0);
+		slider_waterfallPaletteStart.setValue(-30);
+
+		JButton leftPaletteStartButton = new JButton("←");
+		JButton rightPaletteStartButton = new JButton("→");
+
+		leftPaletteStartButton.addActionListener((ActionEvent e) -> {
+			slider_waterfallPaletteStart.setValue(slider_waterfallPaletteStart.getValue() - 1);
+		});
+
+		rightPaletteStartButton.addActionListener((ActionEvent e) -> {
+			slider_waterfallPaletteStart.setValue(slider_waterfallPaletteStart.getValue() + 1);
+		});
+
+		JPanel panelPaletteStart = new JPanel(new BorderLayout());
+		panelPaletteStart.setOpaque(false); // Делаем панель прозрачной
+		panelPaletteStart.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // Отступы по 10 пикселей
+		panelPaletteStart.add(leftPaletteStartButton, BorderLayout.WEST);
+		panelPaletteStart.add(slider_waterfallPaletteStart, BorderLayout.CENTER);
+		panelPaletteStart.add(rightPaletteStartButton, BorderLayout.EAST);
+
+		hackRfOptionsTab.add(panelPaletteStart, "cell 0 9,growx");
+
+
+		JLabel lblWaterfallPaletteLength = new JLabel("Размер палитры водопада [dB]");
+		lblWaterfallPaletteLength.setForeground(Color.WHITE);
+		hackRfOptionsTab.add(lblWaterfallPaletteLength, "cell 0 10");
+
+
+		slider_waterfallPaletteSize = new JSlider(HackRFSweepSpectrumAnalyzer.SPECTRUM_PALETTE_SIZE_MIN, 100);
+		slider_waterfallPaletteSize.setBackground(Color.BLACK);
+		slider_waterfallPaletteSize.setForeground(Color.WHITE);
+
+		JButton leftPaletteSizeButton = new JButton("←");
+		JButton rightPaletteSizeButton = new JButton("→");
+
+		leftPaletteSizeButton.addActionListener((ActionEvent e) -> {
+			slider_waterfallPaletteSize.setValue(slider_waterfallPaletteSize.getValue() - 1);
+		});
+
+		rightPaletteSizeButton.addActionListener((ActionEvent e) -> {
+			slider_waterfallPaletteSize.setValue(slider_waterfallPaletteSize.getValue() + 1);
+		});
+
+		JPanel panelPaletteSize = new JPanel(new BorderLayout());
+		panelPaletteSize.setOpaque(false); // Делаем панель прозрачной
+		panelPaletteSize.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15)); // Отступы по 10 пикселей
+		panelPaletteSize.add(leftPaletteSizeButton, BorderLayout.WEST);
+		panelPaletteSize.add(slider_waterfallPaletteSize, BorderLayout.CENTER);
+		panelPaletteSize.add(rightPaletteSizeButton, BorderLayout.EAST);
+
+		hackRfOptionsTab.add(panelPaletteSize, "cell 0 11,growx");
+
+
+		JLabel lblLNAEnable = new JLabel("Антенное усиление +14dB");
+		lblLNAEnable.setForeground(Color.WHITE);
+		hackRfOptionsTab.add(lblLNAEnable, "flowx,cell 0 14,growx");
+
+		chckbxAntennaLNA = new JCheckBox("");
+		chckbxAntennaLNA.setHorizontalTextPosition(SwingConstants.LEADING);
+		chckbxAntennaLNA.setBackground(Color.BLACK);
+		chckbxAntennaLNA.setForeground(Color.WHITE);
+		hackRfOptionsTab.add(chckbxAntennaLNA, "cell 0 14,alignx right");
+
+
+		hackRFSettings.getGain().addListener((gain) -> lbl_gainValue.setText(String.format(" %ddB  [LNA: %ddB  VGA: %ddB]",
+				gain, hackRFSettings.getGainLNA().getValue(), hackRFSettings.getGainVGA().getValue())));
+
+
+		panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		JScrollPane scrollPane = new JScrollPane(panel);
+
+		scrollPane.setPreferredSize(new Dimension(100, 150));
+		JPanel outerPanel = new JPanel(new BorderLayout());
+		outerPanel.add(scrollPane, BorderLayout.CENTER);
+		hackRfOptionsTab.add(outerPanel,"flowx,cell 0 17,growx");
+
+			/*JLabel lblAntennaPower = new JLabel("Поляризация антенны");
+			lblAntennaPower.setForeground(Color.WHITE);
+			tab1.add(lblAntennaPower, "flowx,cell 0 18,growx");
+
+			chckbxAntennaPower = new JCheckBox("");
+			chckbxAntennaPower.setHorizontalTextPosition(SwingConstants.LEADING);
+			chckbxAntennaPower.setBackground(Color.BLACK);
+			chckbxAntennaPower.setForeground(Color.WHITE);
+			tab1.add(chckbxAntennaPower, "cell 0 18,alignx right");
+			Label labelVersion = new Label("Версия: "+ Version.version);
+			tab1.add(labelVersion, "flowx,cell 0 19");*/
+	}
+
+	/**
+	 * Creates controllers for ui elements
+	 */
 	private void bindViewToModel() {
 		frequencyRangeSelector = new FrequencySelectorRangeBinder(frequencySelectorStart, frequencySelectorEnd);
 		frequencyRangeSelector.selFreqStart.setFocusable(false);

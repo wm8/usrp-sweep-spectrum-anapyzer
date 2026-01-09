@@ -154,8 +154,8 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 	private static boolean	captureGIF					= false;
 	public static int numberApp = 0;
 	public static String hackrfID = "";
-	public static int freqStart = 7000;
-	public static int freqEnd = 15000;
+	public static int freqStart = 2400;
+	public static int freqEnd = 2500;
 	public static int parametrGainLNA = 0;
 	public static int parametrGainVGA = 0;
 	public static int totalgain = 0;
@@ -540,7 +540,7 @@ public class HackRFSweepSpectrumAnalyzer implements HackRFSettings, SweepDataCal
 		splitPane.setResizeWeight(0.4);
 		splitPane.setBorder(null);
 
-		labelMessages = new JLabel("dsadasd");
+		labelMessages = new JLabel("Receiver is offline");
 		labelMessages.setForeground(Color.white);
 		labelMessages.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
 		parameterDebugDisplay.addListener((debug) -> {
