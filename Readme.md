@@ -38,3 +38,15 @@ C:\tools\vcpkg install boost:x64-windows
 ```
 <MVN_EXE_PATH> package
 ```
+
+### Запуск
+```
+java -jar .\sweep_spectrum_analyzer.jar
+```
+##### Возможные ошибки
+1. **Exception in thread "main" java.lang.Error: Invalid memory access** \
+Возникает изза высокой версии сборки libuhd.dll, требующей высокой версии msvcp140.dll (14.4x и выше ), а java может иметь в директории bin библиотеку версии ниже. \
+Решение - переименовать файлы рядом с java (добавить .bak): \
+msvcp140.dll \
+vcruntime140.dll \
+vcruntime140_1.dll
