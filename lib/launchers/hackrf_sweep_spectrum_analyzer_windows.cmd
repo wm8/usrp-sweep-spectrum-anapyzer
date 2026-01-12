@@ -1,1 +1,0 @@
-java -Djna.platform.library.path=lib\win32-x86-64 -jar lib\hackrf_sweep_spectrum_analyzer.jar
