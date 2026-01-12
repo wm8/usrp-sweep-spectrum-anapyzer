@@ -1,6 +1,7 @@
-# Spectrum Analyzer GUI for hackrf_sweep for Windows/Linux
-
-## Сборка
+# Spectrum Analyzer GUI for hackrf/USRP sweep for Windows/Linux
+![img.png](images/gui_example.png)
+### Важно
+В [UsrpSweepNativeBridge.java](src-java%2Fusrp%2FUsrpSweepNativeBridge.java) сейчас заходкожен путь до dll, его нужно исправить
 ### WINDOWS
 ### Зависимости
 #### 1. Maven + jdk 21+
@@ -31,4 +32,9 @@ cd C:\tools\vcpkg
 ```
 C:\tools\vcpkg install fftw3:x64-windows
 C:\tools\vcpkg install boost:x64-windows
+```
+
+### СБОРКА
+```
+<MVN_EXE_PATH> package
 ```

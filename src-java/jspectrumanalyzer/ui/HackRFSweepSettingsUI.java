@@ -37,7 +37,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 	private HackRFSettings hRF;
 	private SocketIOGadalka socketIO;
 	private static final long serialVersionUID = 7721079457485020637L;
-	private JLabel txtHackrfConnected;
+	private JLabel txtReceiverConnected;
 	private FrequencySelectorPanel frequencySelectorStart;
 	private FrequencySelectorPanel frequencySelectorEnd;
 	private JSpinner spinnerFFTBinHz;
@@ -183,12 +183,12 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 
 
 
-		txtHackrfConnected = new JLabel();
-		txtHackrfConnected.setText("HackRF отключен");
-		txtHackrfConnected.setForeground(Color.WHITE);
-		txtHackrfConnected.setBackground(Color.BLACK);
-		panelMainSettings.add(txtHackrfConnected, "cell 0 22,growx");
-		txtHackrfConnected.setBorder(null);
+		txtReceiverConnected = new JLabel();
+		txtReceiverConnected.setText("USRP отключен");
+		txtReceiverConnected.setForeground(Color.WHITE);
+		txtReceiverConnected.setBackground(Color.BLACK);
+		panelMainSettings.add(txtReceiverConnected, "cell 0 22,growx");
+		txtReceiverConnected.setBorder(null);
 
 
 		//btnPause = new JButton("Pause");
@@ -625,7 +625,7 @@ public class HackRFSweepSettingsUI extends JPanel implements SerifListenner {
 			}
 			@Override public void hardwareStatusChanged(boolean hardwareSendingData)
 			{
-				txtHackrfConnected.setText("HackRF "+(hardwareSendingData ? "подключен":"отключен"));
+				txtReceiverConnected.setText("USRP "+(hardwareSendingData ? "подключен":"отключен"));
 			}
 		});;
 

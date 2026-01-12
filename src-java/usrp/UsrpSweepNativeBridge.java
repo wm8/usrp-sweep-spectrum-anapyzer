@@ -23,6 +23,8 @@ public class UsrpSweepNativeBridge {
              * to make sure unpacked jnidispatch.dll is properly loaded
              * jnidispatch.dll is used directly instead of JNA bundled jar, because it is much faster to load
              */
+
+            //TODO: fix hardcode
             String pathPrefix = "C:\\projects\\usrp_reader\\cmake-build-debug-visual-studio\\";// "./" + Platform.RESOURCE_PREFIX + "/";
             System.setProperty("jna.boot.library.path", pathPrefix);
             System.setProperty("jna.nosys", "true");
